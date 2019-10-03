@@ -71,8 +71,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
 
+    private static void fratilKontroll(int antall, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + antall + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+
         public Liste<T> subliste(int fra, int til){
-            throw new NotImplementedException();
+           fratilKontroll(antall,fra,til);
+
+
         }
 
         @Override
@@ -311,15 +328,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             if (!tom())
             {
-                Node<T> p = hode;
-                s.append(p.verdi);
+                s.append(hode.verdi);
 
-                p = p.neste;
-
-                while (p != null)  // tar med resten hvis det er noe mer
+                for (Node<T> p = hode.neste; p != null; p = p.neste)
                 {
                     s.append(',').append(' ').append(p.verdi);
-                    p = p.neste;
                 }
             }
             s.append(']');
@@ -336,17 +349,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             if (!tom())
             {
-                Node<T> p = hale;
-                s.append(p.verdi);
+                s.append(hale.verdi);
 
-                p = p.forrige;
-
-                while (p != null)  // tar med resten hvis det er noe mer
+                for (Node<T> p = hale.forrige; p != null; p = p.forrige)
                 {
                     s.append(',').append(' ').append(p.verdi);
-                    p = p.forrige;
                 }
             }
+
             s.append(']');
             return s.toString();
         }
@@ -453,10 +463,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
-
-      Liste <String> liste = new DobbeltLenketListe<>();
-      System.out.println(liste.antall() + " "+liste.tom());
-
     }
 } // class DobbeltLenketListe
 
