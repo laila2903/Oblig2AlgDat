@@ -88,8 +88,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         public Liste<T> subliste(int fra, int til){
            fratilKontroll(antall,fra,til);
-
-
+           endringer = 0;
+           DobbeltLenketListe <T> liste = new DobbeltLenketListe<>();
+           int teller = 0;
+           for (int i = fra; i<til; i++){
+               liste.
+           }
+           return liste;
         }
 
         @Override
