@@ -303,7 +303,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public String toString() {
 
-        /*if(hode.verdi==null){
+        if(hode.verdi==null){
             return "[]";
         }
 
@@ -317,14 +317,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
         s.append("]");
-        return s.toString();*/
-        throw new NotImplementedException();
+        return s.toString();
+
     }
 
 
    public String omvendtString() {
 
-        /*if(hale.verdi==null){
+        if(hale.verdi==null){
             return "[]";
         }
 
@@ -338,8 +338,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
         s.append("]");
-        return s.toString();*/
-        throw new NotImplementedException();
+        return s.toString();
+
     }
 
     @Override
