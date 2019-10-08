@@ -42,6 +42,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
         this(); //alle variablene er nullet
         Objects.requireNonNull(a, "Tabell a er null!");
+
         for (T verdi : a) {
             if (verdi != null) {
                 a[antall++] = verdi; //hopper over null verdier
@@ -379,7 +380,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return new DobbeltLenketListeIterator(indeks); //returnerer instans av iteratorklassen
     }
 
-    private class DobbeltLenketListeIterator implements Iterator<T> {
+   private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean fjernOK;
         private int iteratorendringer;
@@ -470,14 +471,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new NotImplementedException();
-    }
+        }
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
         String [] s1 = {};
         String [] s2 = {"A"};
@@ -494,7 +495,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
 
-    }
+        }
 }
 // class DobbeltLenketListe
 
