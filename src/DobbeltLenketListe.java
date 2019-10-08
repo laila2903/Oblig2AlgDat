@@ -87,44 +87,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     {
         this();  // alle variabelene er nullet
         Objects.requireNonNull(a,"Tabellen a er null");
+
         // Finner den første i a som ikke er null
+        int i = 0; for (; i < a.length && a[i] == null; i++);
 
-        int i = 0;
+        if (i < a.length)
+        {
+            Node<T> p = hode = new Node<>(a[i], null,null);  // den første noden
+            antall = 1;                                 // vi har minst en node
 
-        for (; i < a.length && a[i] == null; i++);
-        if(a.length==0){
-            antall=0;
-        }
-        else{
-            if(a.length<2 && a!=null){
-                Node <T>p= new Node<T>(null);
-                p=hode=hale;
-                antall=1;
-            }
-            else{
-                antall++;
-                Node <T>p= new Node<T>(null);
-                hode=hale=p;
-                if (i < a.length)
+            for (i++; i < a.length; i++)
+            {
+                if (a[i] != null)
                 {
-                    for (i++; i < a.length; i++)
-                    {
-                        if (a[i] != null)
-                        {
-                            p=new Node<T>(a[i],null,null);
-                            antall++;
-                            hode.forrige=p;
-                            p.neste=hode;
-                            hode=p;
-                        }
-
-                    }
+                    p = p.neste = new Node<>(a[i], null,null);   // en ny node
+                    antall++;
                 }
             }
-
-
+            hale = p;
         }
     }
+
     private static void fratilKontroll(int antall, int fra, int til) {
         if (fra < 0)                                  // fra er negativ
             throw new IndexOutOfBoundsException
