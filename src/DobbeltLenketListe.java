@@ -49,9 +49,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             p = hale;  //hvis indeksen er større enn antall/2 vil den lete fra hale og til midten
 
             for (int i = antall - 1; i > indeks; i--) {
-                System.out.println(p.verdi);
+
                 p = p.forrige;
-                System.out.println(p.verdi);
+
             }
         }
         return p;
@@ -491,20 +491,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static void main(String[] args) {
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
-        Iterator<Integer> i = liste.iterator();
-        for (int k = 2; k <= 7; k++) {
-            liste.leggInn(k);
-        }
-        int k = 1;
-        for (Iterator<Integer> j = liste.iterator(); j.hasNext(); ) {
-            if (j.next() != k) {
-                System.out.println("hello");
 
-
-            }
-            k++;
-        }
 
 
     }
