@@ -3,6 +3,7 @@
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.time.Year;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
@@ -313,8 +314,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
-        throw new NotImplementedException();
+        Node<T> p = hode;
+        Node<T> q = null;
+        while (p != null) {
+            q = p.neste;
+            p.neste = null;
+            p.verdi = null;
+            p = q;
+        }
+        hode = hale = null;
+        antall = 0;
     }
+
+
 
     @Override
     public String toString() {
@@ -461,11 +473,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static void main(String[] args) {
-        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
-        DobbeltLenketListe<Character> cliste = new DobbeltLenketListe<>(c);
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        Iterator<Integer> i = liste.iterator();
+        for (int k = 2; k <= 7; k++) {
+            liste.leggInn(k);
+        }
+        int k = 1;
+        for (Iterator<Integer> j = liste.iterator(); j.hasNext(); ) {
+            if (j.next() != k) {
+                System.out.println("hello");
 
-       Liste ut=cliste.subliste(9,11); // Feilen kommer på seks, altså når vi leter fra hale, noe feil med konstruktør??
-        System.out.println(ut.toString());
+
+            }
+            k++;
+        }
 
 
     }
