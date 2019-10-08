@@ -88,32 +88,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         this();  // alle variabelene er nullet
         Objects.requireNonNull(a,"Tabellen a er null");
         // Finner den første i a som ikke er null
+
         int i = 0;
 
         for (; i < a.length && a[i] == null; i++);
-        if(antall==0){
-
-            Node <T>p= new Node<T>(null);
+        if(a.length==0){
             antall=0;
         }
         else{
-            Node <T>p= new Node<T>(a[i],null,null);
-            antall=1;
-            hode=hale=p;
-            if (i < a.length)
-            {
-                for (i++; i < a.length; i++)
+            if(a.length<2 && a!=null){
+                Node <T>p= new Node<T>(null);
+                p=hode=hale;
+                antall=1;
+            }
+            else{
+                antall++;
+                Node <T>p= new Node<T>(null);
+                hode=hale=p;
+                if (i < a.length)
                 {
-                    if (a[i] != null)
+                    for (i++; i < a.length; i++)
                     {
-                        p=new Node<T>(a[i],null,null);
-                        antall++;
-                        hode.forrige=p;
-                        p.neste=hode;
-                        hode=p;
+                        if (a[i] != null)
+                        {
+                            p=new Node<T>(a[i],null,null);
+                            antall++;
+                            hode.forrige=p;
+                            p.neste=hode;
+                            hode=p;
+                        }
+
                     }
                 }
             }
+
+
         }
     }
     private static void fratilKontroll(int antall, int fra, int til) {
@@ -460,43 +469,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static void main(String[] args) {
-        String []s={"A"};
-        //String [] s={"Ole", null,"Per","Kari", null};
-        // Liste<String>liste =new DobbeltLenketListe<>(s);
-        String []s1={},s2={"A"},s3={null,"A",null,"B",null,"C",null};
-
-        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s);
-
-
-        //  DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
-        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
-        l3.leggInn("D");
-        l3.leggInn("E");
-        // System.out.println(l1.toString()+" "+l2.toString()+" "+l3.toString()+l1.omvendtString()+" "+l2.omvendtString()+" "+l3.omvendtString());
-        System.out.println(l3.toString());
-        System.out.println(l3.omvendtString());
-
-        DobbeltLenketListe<Integer> liste =  new DobbeltLenketListe<>();
-        System.out.println(liste.toString() +  "  " + liste.omvendtString());
-        for(int i=1; i<=3; i++) {
-            liste.leggInn(i);
-            System.out.println(liste.toString() + "  " + liste.omvendtString());
-        }
-        System.out.println(l3.finnNode(3).verdi);
-
-        System.out.println(l3.finnNode(3).verdi);
-        System.out.println(l3.hent(3));
-        System.out.println(l3.toString());
-        System.out.println(l3.oppdater(0,"x"));
-        System.out.println(l3.toString());
-        Character [] c={'A','B','C','D','E','F','G','H','I','J',};
-        DobbeltLenketListe<Character> liste3 =new DobbeltLenketListe<>(c);
-        System.out.println(liste3.subliste(2,4).toString());
-        liste3.leggInn(liste3.antall,'C');
-        System.out.println(liste3.toString());
-        liste3.fjern('c');
-        liste3.fjern('A');// Hvorfor kalles denne slik?
-        System.out.println(liste3.toString());
+        DobbeltLenketListe liste = new DobbeltLenketListe<>(new Integer[]{null, null});
+        System.out.println(liste.antall);
 
 
     }
