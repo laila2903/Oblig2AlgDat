@@ -315,15 +315,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void nullstill() {
         Node<T> p = hode;
-        Node<T> q = null;
-        while (p != null) {
+        Node<T> q;
+        for (int i = 0; i < antall - 1; i++) {
             q = p.neste;
             p.neste = null;
-            p.verdi = null;
+            p.forrige = null;
             p = q;
         }
         hode = hale = null;
         antall = 0;
+        endringer++;
     }
 
 
@@ -398,28 +399,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
 
-        private DobbeltLenketListeIterator(int indeks){
-            Node<T> p = finnNode(indeks);  //finner noden
-            this.denne = p.neste; //setter pekeren denne til noden
+        private DobbeltLenketListeIterator(int indeks) {
+            denne = finnNode(indeks);
+            fjernOK = false;
+            iteratorendringer = endringer;
         }
 
 
         @Override
-        public T next(){
-            Node<T> p = hode;
-            if (iteratorendringer != endringer) {
-                throw new ConcurrentModificationException("Listen er endret!");   //hvis iterator endring ikke er lik endring
-            }
-            if (!hasNext()) {
-                throw new NoSuchElementException("Ingen verdier!"); //kaster dette hvis det ikke er noe elementer igjen
-            }
-            fjernOK = true;            // kaller nå remove()
-            T thisVerdi = p.verdi;    // tar vare på verdien i p
-            p = p.neste;               // flytter p til den neste node
-            endringer++;
-            iteratorendringer++;
-            return thisVerdi;         // returnerer verdien
-
+        public T next()
+        {
+            if(iteratorendringer != endringer) {
+                throw new ConcurrentModificationException();
+            } if(!hasNext()) throw new NoSuchElementException();
+            Node<T> p = denne;
+            denne = denne.neste;
+            fjernOK = true;
+            return p.verdi;
         }
 
         @Override
