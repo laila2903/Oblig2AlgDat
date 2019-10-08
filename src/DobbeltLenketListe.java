@@ -87,23 +87,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     {
         this();  // alle variabelene er nullet
         Objects.requireNonNull(a,"Tabellen a er null");
+        for(T verdi: a){
+            if(verdi!=(null)){
+                antall++;
+            }
+
+        }
         // Finner den første i a som ikke er null
 
         int i = 0;
 
+
         for (; i < a.length && a[i] == null; i++);
         if(a.length==0){
-            antall=0;
+           // antall=0;
         }
         else{
             if(a.length<2 && a!=null){
                 Node <T>p= new Node<T>(null);
                 p=hode=hale;
-                antall=1;
+                //antall=1;
             }
             else{
-                antall++;
-                Node <T>p= new Node<T>(null);
+                //antall++;
+                Node <T>p= new Node<T>(a[0],null,null);
                 hode=hale=p;
                 if (i < a.length)
                 {
@@ -112,15 +119,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                         if (a[i] != null)
                         {
                             p=new Node<T>(a[i],null,null);
-                            antall++;
+                            //antall++;
                             hode.forrige=p;
                             p.neste=hode;
                             hode=p;
                         }
 
+
                     }
                 }
             }
+
 
 
         }
@@ -331,14 +340,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (!tom()) {
             Node<T> p = hode;
             s.append(p.verdi);
-
             p = p.neste;
-
-            while (p != null)  // tar med resten hvis det er noe mer
+            while (p != null ||)  // tar med resten hvis det er noe mer
             {
                 s.append(',').append(' ').append(p.verdi);
                 p = p.neste;
             }
+
         }
 
         s.append(']');
@@ -469,8 +477,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static void main(String[] args) {
-        DobbeltLenketListe liste = new DobbeltLenketListe<>(new Integer[]{null, null});
-        System.out.println(liste.antall);
+        DobbeltLenketListe liste = new DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null});
+        System.out.println(liste.toString());
+        DobbeltLenketListe liste2= new DobbeltLenketListe<>(new Character[]{'a','b','c'});
+        System.out.println(liste2.toString());
+        liste2.toString();
+        System.out.println(liste2.omvendtString());
+
 
 
     }
