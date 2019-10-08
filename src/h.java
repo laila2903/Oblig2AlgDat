@@ -646,11 +646,11 @@ class DobbeltLenketListeTest {
     ///////// Oppgave 6 //////////////////////////
     @org.junit.jupiter.api.Test
     void oppgave6() {
-        int antallFeil = 0;
+       int antallFeil = 0;
 
         DobbeltLenketListe<String> liste = new DobbeltLenketListe<>();
 
-        try {
+       try {
             liste.fjern(0);
             antallFeil++;
             System.out.println("Oppgave 6a: Indeks 0 finnes ikke i en tom liste!");

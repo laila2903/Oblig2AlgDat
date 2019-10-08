@@ -385,12 +385,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return denne != null;
         }
 
-
-
-
         private DobbeltLenketListeIterator(int indeks){
             Node<T> p = finnNode(indeks);  //finner noden
-            this.denne = p.neste; //setter pekeren denne til noden
+            this.denne = p; //setter pekeren denne til noden
         }
 
 
@@ -466,7 +463,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> cliste = new DobbeltLenketListe<>(c);
 
-       Liste ut=cliste.subliste(9,11); // Feilen kommer på seks, altså når vi leter fra hale, noe feil med konstruktør??
+       Liste ut=cliste.subliste(9,10); // Feilen kommer på seks, altså når vi leter fra hale, noe feil med konstruktør??
         System.out.println(ut.toString());
 
 
