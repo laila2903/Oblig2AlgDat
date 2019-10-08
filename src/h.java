@@ -428,7 +428,7 @@ class DobbeltLenketListeTest {
                     ("Oppgave 3x: Sublisten skal inneholde kun de to første verdiene!");
         }
 
-        if (!cliste.subliste(8, 10).toString().equals("[I, J]")) {
+        if (!cliste.subliste(7, 9).toString().equals("[I, J]")) { // Rettet denne da den går utenfor
             antallFeil++;
             System.out.println
                     ("Oppgave 3y: Sublisten skal inneholde kun de to siste verdiene!");
