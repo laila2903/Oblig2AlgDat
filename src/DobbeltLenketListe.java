@@ -3,6 +3,7 @@
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.time.Year;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
@@ -117,7 +118,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
-
     private static void fratilKontroll(int antall, int fra, int til) {
         if (fra < 0)                                  // fra er negativ
             throw new IndexOutOfBoundsException
@@ -131,7 +131,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new IllegalArgumentException
                     ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
     }
-
     @Override
     public int antall() {
         return antall;
@@ -315,8 +314,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
-        throw new NotImplementedException();
+        Node<T> p = hode;
+        Node<T> q;
+        for (int i = 0; i < antall - 1; i++) {
+            q = p.neste;
+            p.neste = null;
+            p.forrige = null;
+            p = q;
+        }
+        hode = hale = null;
+        antall = 0;
+        endringer++;
     }
+
+
 
     @Override
     public String toString() {
@@ -385,28 +396,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return denne != null;
         }
 
-        private DobbeltLenketListeIterator(int indeks){
-            Node<T> p = finnNode(indeks);  //finner noden
-            this.denne = p; //setter pekeren denne til noden
+
+
+
+        private DobbeltLenketListeIterator(int indeks) {
+            denne = finnNode(indeks);
+            fjernOK = false;
+            iteratorendringer = endringer;
         }
 
 
         @Override
-        public T next(){
-            Node<T> p = hode;
-            if (iteratorendringer != endringer) {
-                throw new ConcurrentModificationException("Listen er endret!");   //hvis iterator endring ikke er lik endring
-            }
-            if (!hasNext()) {
-                throw new NoSuchElementException("Ingen verdier!"); //kaster dette hvis det ikke er noe elementer igjen
-            }
-            fjernOK = true;            // kaller nå remove()
-            T thisVerdi = p.verdi;    // tar vare på verdien i p
-            p = p.neste;               // flytter p til den neste node
-            endringer++;
-            iteratorendringer++;
-            return thisVerdi;         // returnerer verdien
-
+        public T next()
+        {
+            if(iteratorendringer != endringer) {
+                throw new ConcurrentModificationException();
+            } if(!hasNext()) throw new NoSuchElementException();
+            Node<T> p = denne;
+            denne = denne.neste;
+            fjernOK = true;
+            return p.verdi;
         }
 
         @Override
@@ -460,11 +469,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static void main(String[] args) {
-        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
-        DobbeltLenketListe<Character> cliste = new DobbeltLenketListe<>(c);
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        Iterator<Integer> i = liste.iterator();
+        for (int k = 2; k <= 7; k++) {
+            liste.leggInn(k);
+        }
+        int k = 1;
+        for (Iterator<Integer> j = liste.iterator(); j.hasNext(); ) {
+            if (j.next() != k) {
+                System.out.println("hello");
 
-       Liste ut=cliste.subliste(9,10); // Feilen kommer på seks, altså når vi leter fra hale, noe feil med konstruktør??
-        System.out.println(ut.toString());
+
+            }
+            k++;
+        }
 
 
     }
