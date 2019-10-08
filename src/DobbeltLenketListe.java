@@ -91,25 +91,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         int i = 0;
 
         for (; i < a.length && a[i] == null; i++);
-        Node <T>p= new Node<T>(a[i],null,null);
-        antall++;
-        hode=hale=p;
-        if (i < a.length)
-        {
-            for (i++; i < a.length; i++)
+        if(antall==0){
+
+            Node <T>p= new Node<T>(null);
+            antall=0;
+        }
+        else{
+            Node <T>p= new Node<T>(a[i],null,null);
+            antall=1;
+            hode=hale=p;
+            if (i < a.length)
             {
-                if (a[i] != null)
+                for (i++; i < a.length; i++)
                 {
-                    p=new Node<T>(a[i],null,null);
-                    antall++;
-                    hode.forrige=p;
-                    p.neste=hode;
-                    hode=p;
+                    if (a[i] != null)
+                    {
+                        p=new Node<T>(a[i],null,null);
+                        antall++;
+                        hode.forrige=p;
+                        p.neste=hode;
+                        hode=p;
+                    }
                 }
             }
-
         }
-
     }
     private static void fratilKontroll(int antall, int fra, int til) {
         if (fra < 0)                                  // fra er negativ
@@ -489,6 +494,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         System.out.println(liste3.subliste(2,4).toString());
         liste3.leggInn(liste3.antall,'C');
         System.out.println(liste3.toString());
+        liste3.fjern('c');
         liste3.fjern('A');// Hvorfor kalles denne slik?
         System.out.println(liste3.toString());
 
