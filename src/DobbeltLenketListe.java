@@ -416,6 +416,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return p.verdi;
         }
 
+
         @Override
         public void remove(){
             if (!fjernOK){
@@ -460,10 +461,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             iteratorendringer++;  // en endring i iteratoren
         }
 
+
+
     } // class DobbeltLenketListeIterator
 
+    /*
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new NotImplementedException();
+    }*/
+
+    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c){
+        if (liste.antall() == 1){
+            return;
+        }
+        boolean p = false;
+        while (!p){
+            p = true;
+            for (int i = 0; i < liste.antall()-1; i++){
+                T q = liste.hent(i);
+                T r = liste.hent(i+1);
+                if (c.compare(q, r) > 0){
+                    T temp = q;
+                    liste.fjern(i);
+                    liste.leggInn(i+1, temp);
+                    p = false;
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
