@@ -397,8 +397,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
 
-
-
         private DobbeltLenketListeIterator(int indeks) {
             denne = finnNode(indeks);
             fjernOK = false;
@@ -437,19 +435,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             {
                 hode = hale = null;
             }
-            else if (p == null)  // den siste skal fjernes
+            else if (denne == null)  // den siste skal fjernes
             {
                 q = hale;
                 hale = hale.forrige;
                 hale.neste = null;
             }
-            else if (p.forrige == hode)  // den første skal fjernes
+            else if (denne.forrige == hode)  // den første skal fjernes
             {
                 hode = hode.neste;
                 hode.forrige = null;
             }
             else {
-                q = p.forrige;  // q skal fjernes
+                q = denne.forrige;  // q skal fjernes
                 q.forrige.neste = q.neste;
                 q.neste.forrige = q.forrige;
             }
