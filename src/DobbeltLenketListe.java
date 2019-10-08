@@ -56,11 +56,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         fratilKontroll(antall,fra,til);
 
+
         Node<T> p = finnNode(fra); //starter fra første node"fra"
 
         Liste<T> delliste = new DobbeltLenketListe<T>();
+        if(fra-til<=0){
+            return delliste;
+            }
 
-        for (int i = fra; i < til; i++) { //for-loop som løper gjennom alle nodene fra node fra til node til
+        for (int i = fra; i <= til; i++) { //for-loop som løper gjennom alle nodene fra node fra til node til
             delliste.leggInn(p.verdi);  //legger inn verdiene i en egen subliste
             p = p.neste; // setter p = ny/neste p
         }
@@ -452,8 +456,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static void main(String[] args) {
-        DobbeltLenketListe liste = new DobbeltLenketListe<>(new Integer[]{null, null});
-        System.out.println(liste.antall);
+        DobbeltLenketListe liste = new DobbeltLenketListe<>(new Character[]{'A','B','C','D','E'});
+        System.out.println(liste.subliste(0,3).toString());
 
 
     }
