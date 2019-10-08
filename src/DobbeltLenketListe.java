@@ -41,12 +41,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (indeks <= antall / 2) {  //hvis indeksen er mindre enn antall/2 vil den lete fra hodet og til midten
             p = hode;
             for (int i = 0; i < indeks; i++) {
+
                 p = p.neste;
             }
         } else {
             p = hale;  //hvis indeksen er større enn antall/2 vil den lete fra hale og til midten
+
             for (int i = antall - 1; i > indeks; i--) {
+                System.out.println(p.verdi);
                 p = p.forrige;
+                System.out.println(p.verdi);
             }
         }
         return p;
@@ -104,11 +108,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             {
                 if (a[i] != null)
                 {
-                    p = p.neste = new Node<>(a[i], null,null);   // en ny node
+                    p = p.neste = new Node<>(a[i], p,null);   // en ny node
                     antall++;
                 }
             }
             hale = p;
+
         }
     }
 
@@ -119,7 +124,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         if (til > antall)                          // til er utenfor tabellen
             throw new IndexOutOfBoundsException
-                    ("til(" + til + ") > tablengde(" + antall + ")");
+                    ("til(" + til + ") > Antall(" + antall + ")");
 
         if (fra > til)                                // fra er større enn til
             throw new IllegalArgumentException
@@ -458,7 +463,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static void main(String[] args) {
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> cliste = new DobbeltLenketListe<>(c);
-       Liste ut=cliste.subliste(8,9);
+
+       Liste ut=cliste.subliste(9,11); // Feilen kommer på seks, altså når vi leter fra hale, noe feil med konstruktør??
         System.out.println(ut.toString());
 
 
